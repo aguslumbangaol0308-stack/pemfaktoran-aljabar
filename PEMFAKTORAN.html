@@ -1,0 +1,3766 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eksplorasi Penjabaran & Pemfaktoran Aljabar</title>
+
+<style>
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+header p {
+    opacity: .92;
+    font-size: 16px;
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    width: min(1200px, 94%);
+    margin: 30px auto;
+}
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    border: none;
+    padding: 15px 10px;
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    transition: .25s;
+}
+
+.tab-button:hover {
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* =========================================================
+   MODULE
+   ========================================================= */
+
+.module {
+    display: none;
+}
+
+.module.active {
+    display: block;
+}
+
+.module-header {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.07);
+}
+
+.module-header h2 {
+    color: #1d4ed8;
+    margin-bottom: 6px;
+}
+
+.module-header p {
+    color: #6b7280;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.25fr .75fr;
+    gap: 20px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.07);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+}
+
+/* =========================================================
+   VISUAL
+   ========================================================= */
+
+.visual-area {
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.control-group {
+    margin-bottom: 18px;
+}
+
+.control-group label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.value {
+    color: #2563eb;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #2563eb;
+}
+
+/* =========================================================
+   FORMULA
+   ========================================================= */
+
+.formula {
+    background: #eff6ff;
+    border-left: 5px solid #2563eb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.calculation {
+    margin-top: 15px;
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.calculation p {
+    margin-bottom: 7px;
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+button.action {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 700;
+    background: #2563eb;
+    color: white;
+    transition: .2s;
+}
+
+button.action:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+button.secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+button.secondary:hover {
+    background: #d1d5db;
+}
+
+/* =========================================================
+   STEPS
+   ========================================================= */
+
+.steps {
+    margin-top: 20px;
+}
+
+.step {
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border-left: 4px solid #60a5fa;
+}
+
+/* =========================================================
+   ANIMATION BOX
+   ========================================================= */
+
+.animation-box {
+    margin-top: 20px;
+    padding: 16px;
+    background: #eff6ff;
+    border-radius: 12px;
+}
+
+.animation-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.animation-status {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 600;
+}
+
+/* =========================================================
+   SVG
+   ========================================================= */
+
+.math-svg {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    overflow: visible;
+}
+
+.svg-label {
+    font-size: 16px;
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.svg-small {
+    font-size: 13px;
+}
+
+svg rect,
+svg path,
+svg line {
+    vector-effect: non-scaling-stroke;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .visual-area {
+        min-height: 430px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    .tabs {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>
+        Eksplorasi Penjabaran & Pemfaktoran Aljabar
+    </h1>
+
+    <p>
+        Belajar memahami bentuk aljabar melalui visualisasi geometri interaktif
+    </p>
+
+</header>
+
+<div class="container">
+
+<!-- =========================================================
+     TABS
+     ========================================================= -->
+
+<div class="tabs">
+
+    <button class="tab-button active" data-tab="module1">
+        1. Bentuk Umum
+    </button>
+
+    <button class="tab-button" data-tab="module2">
+        2. Kuadrat Jumlah
+    </button>
+
+    <button class="tab-button" data-tab="module3">
+        3. Kuadrat Selisih
+    </button>
+
+    <button class="tab-button" data-tab="module4">
+        4. Selisih Kuadrat
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     MODULE 1
+     ========================================================= -->
+
+<section id="module1" class="module active">
+
+<div class="module-header">
+
+    <h2>Modul 1 — Bentuk Umum</h2>
+
+    <p>
+        Memahami mengapa
+        (a+b)(c+d) = ac + ad + bc + bd
+        melalui luas persegi panjang.
+    </p>
+
+</div>
+
+<div class="content-grid">
+
+<div class="card visual-area">
+
+<svg id="m1SVG"
+     class="math-svg"
+     viewBox="0 0 620 430">
+
+    <rect id="m1AC"
+          fill="#93c5fd"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m1AD"
+          fill="#86efac"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m1BC"
+          fill="#fca5a5"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m1BD"
+          fill="#fde68a"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <text id="m1ACLabel" class="svg-label">
+        ac
+    </text>
+
+    <text id="m1ADLabel" class="svg-label">
+        ad
+    </text>
+
+    <text id="m1BCLabel" class="svg-label">
+        bc
+    </text>
+
+    <text id="m1BDLabel" class="svg-label">
+        bd
+    </text>
+
+    <text id="m1WidthLabel"
+          class="svg-label svg-small"
+          y="390">
+    </text>
+
+    <text id="m1HeightLabel"
+          class="svg-label svg-small"
+          x="35"
+          transform="rotate(-90 35 210)">
+    </text>
+
+</svg>
+
+</div>
+
+<div class="card">
+
+<h3>Atur Nilai</h3>
+
+<div class="control-group">
+
+<label>
+a
+<span class="value" id="a1Value">5</span>
+</label>
+
+<input type="range"
+       id="a1"
+       min="1"
+       max="10"
+       value="5">
+
+</div>
+
+<div class="control-group">
+
+<label>
+b
+<span class="value" id="b1Value">5</span>
+</label>
+
+<input type="range"
+       id="b1"
+       min="1"
+       max="10"
+       value="5">
+
+</div>
+
+<div class="control-group">
+
+<label>
+c
+<span class="value" id="c1Value">7</span>
+</label>
+
+<input type="range"
+       id="c1"
+       min="1"
+       max="10"
+       value="7">
+
+</div>
+
+<div class="control-group">
+
+<label>
+d
+<span class="value" id="d1Value">7</span>
+</label>
+
+<input type="range"
+       id="d1"
+       min="1"
+       max="10"
+       value="7">
+
+</div>
+
+<div class="formula">
+(a+b)(c+d) = ac + ad + bc + bd
+</div>
+
+<div class="calculation"
+     id="m1Calculation">
+</div>
+
+<div class="button-row">
+
+<button class="action"
+        id="m1Animate">
+▶ Pisahkan & Gabungkan
+</button>
+
+<button class="action secondary"
+        id="m1Reset">
+↺ Reset
+</button>
+
+</div>
+
+<div class="animation-box">
+
+<div class="animation-title">
+Proses Visualisasi
+</div>
+
+<div class="progress-label">
+
+<span>
+Proses
+</span>
+
+<span id="m1Percent">
+0%
+</span>
+
+</div>
+
+<input type="range"
+       id="m1Range"
+       min="0"
+       max="100"
+       value="0">
+
+<p class="animation-status"
+   id="m1Status">
+Bentuk lengkap: (a+b)(c+d)
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MODULE 2
+     ========================================================= -->
+
+<section id="module2" class="module">
+
+<div class="module-header">
+
+<h2>Modul 2 — Kuadrat Jumlah</h2>
+
+<p>
+Memahami secara visual bahwa
+(x+a)² = x² + 2ax + a².
+</p>
+
+</div>
+
+<div class="content-grid">
+
+<div class="card visual-area">
+
+<svg id="m2SVG"
+     class="math-svg"
+     viewBox="0 0 620 430">
+
+    <rect id="m2X2"
+          fill="#93c5fd"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m2AX1"
+          fill="#86efac"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m2AX2"
+          fill="#86efac"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m2A2"
+          fill="#fde68a"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <text id="m2X2Label" class="svg-label">
+        x²
+    </text>
+
+    <text id="m2AX1Label" class="svg-label">
+        ax
+    </text>
+
+    <text id="m2AX2Label" class="svg-label">
+        ax
+    </text>
+
+    <text id="m2A2Label" class="svg-label">
+        a²
+    </text>
+
+</svg>
+
+</div>
+
+<div class="card">
+
+<h3>Atur Nilai</h3>
+
+<div class="control-group">
+
+<label>
+x
+<span class="value" id="x2Value">7</span>
+</label>
+
+<input type="range"
+       id="x2"
+       min="2"
+       max="10"
+       value="7">
+
+</div>
+
+<div class="control-group">
+
+<label>
+a
+<span class="value" id="a2Value">3</span>
+</label>
+
+<input type="range"
+       id="a2"
+       min="1"
+       max="8"
+       value="3">
+
+</div>
+
+<div class="formula">
+(x+a)² = x² + 2ax + a²
+</div>
+
+<div class="calculation"
+     id="m2Calculation">
+</div>
+
+<div class="steps">
+
+<div class="step">
+1. Persegi pertama memiliki luas x².
+</div>
+
+<div class="step">
+2. Dua persegi panjang masing-masing memiliki luas ax.
+</div>
+
+<div class="step">
+3. Persegi kecil memiliki luas a².
+</div>
+
+<div class="step">
+4. Total luas = x² + 2ax + a².
+</div>
+
+</div>
+
+<div class="button-row">
+
+<button class="action"
+        id="m2Animate">
+▶ Pisahkan & Gabungkan
+</button>
+
+<button class="action secondary"
+        id="m2Reset">
+↺ Reset
+</button>
+
+</div>
+
+<div class="animation-box">
+
+<div class="animation-title">
+Proses Visualisasi
+</div>
+
+<div class="progress-label">
+
+<span>
+Proses
+</span>
+
+<span id="m2Percent">
+0%
+</span>
+
+</div>
+
+<input type="range"
+       id="m2Range"
+       min="0"
+       max="100"
+       value="0">
+
+<p class="animation-status"
+   id="m2Status">
+Semua bagian membentuk persegi (x+a)².
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MODULE 3
+     ========================================================= -->
+
+<section id="module3" class="module">
+
+<div class="module-header">
+
+<h2>Modul 3 — Kuadrat Selisih</h2>
+
+<p>
+Memahami secara visual bahwa
+(x-a)² = x² - 2ax + a².
+</p>
+
+</div>
+
+<div class="content-grid">
+
+<div class="card visual-area">
+
+<svg id="m3SVG"
+     class="math-svg"
+     viewBox="0 0 620 430">
+
+    <rect id="m3Main"
+          fill="#93c5fd"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m3Right"
+          fill="#fca5a5"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m3Bottom"
+          fill="#86efac"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <rect id="m3Corner"
+          fill="#fde68a"
+          stroke="#1f2937"
+          stroke-width="2"/>
+
+    <text id="m3MainLabel"
+          class="svg-label">
+        (x-a)²
+    </text>
+
+    <text id="m3RightLabel"
+          class="svg-label">
+        ax
+    </text>
+
+    <text id="m3BottomLabel"
+          class="svg-label">
+        ax
+    </text>
+
+    <text id="m3CornerLabel"
+          class="svg-label">
+        a²
+    </text>
+
+</svg>
+
+</div>
+
+<div class="card">
+
+<h3>Atur Nilai</h3>
+
+<div class="control-group">
+
+<label>
+x
+<span class="value" id="x3Value">8</span>
+</label>
+
+<input type="range"
+       id="x3"
+       min="3"
+       max="10"
+       value="8">
+
+</div>
+
+<div class="control-group">
+
+<label>
+a
+<span class="value" id="a3Value">3</span>
+</label>
+
+<input type="range"
+       id="a3"
+       min="1"
+       max="7"
+       value="3">
+
+</div>
+
+<div class="formula">
+(x-a)² = x² - 2ax + a²
+</div>
+
+<div class="calculation"
+     id="m3Calculation">
+</div>
+
+<div class="steps">
+
+<div class="step">
+1. Persegi awal memiliki luas x².
+</div>
+
+<div class="step">
+2. Dua bagian yang dikurangi memiliki total luas 2ax.
+</div>
+
+<div class="step">
+3. Bagian sudut a² ikut terkurangi dua kali sehingga harus ditambahkan kembali.
+</div>
+
+<div class="step">
+4. Hasil akhirnya adalah x² - 2ax + a².
+</div>
+
+</div>
+
+<div class="button-row">
+
+<button class="action"
+        id="m3Animate">
+▶ Pisahkan & Gabungkan
+</button>
+
+<button class="action secondary"
+        id="m3Reset">
+↺ Reset
+</button>
+
+</div>
+
+<div class="animation-box">
+
+<div class="animation-title">
+Proses Visualisasi
+</div>
+
+<div class="progress-label">
+
+<span>
+Proses
+</span>
+
+<span id="m3Percent">
+0%
+</span>
+
+</div>
+
+<input type="range"
+       id="m3Range"
+       min="0"
+       max="100"
+       value="0">
+
+<p class="animation-status"
+   id="m3Status">
+Persegi awal: x².
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     MODULE 4
+     ========================================================= -->
+
+<section id="module4" class="module">
+
+<div class="module-header">
+
+<h2>Modul 4 — Selisih Kuadrat</h2>
+
+<p>
+Gunakan animasi untuk melihat mengapa
+x² - a² = (x+a)(x-a).
+</p>
+
+</div>
+
+<div class="content-grid">
+
+
+<!-- =====================================================
+     VISUAL MODULE 4
+     ===================================================== -->
+
+<div class="card visual-area">
+
+<svg id="m4SVG"
+     class="math-svg"
+     viewBox="0 0 760 480">
+
+<defs>
+
+<marker id="m4ArrowHead"
+        markerWidth="10"
+        markerHeight="10"
+        refX="8"
+        refY="3"
+        orient="auto"
+        markerUnits="strokeWidth">
+
+<path d="M0,0 L0,6 L9,3 Z"
+      fill="#374151"/>
+
+</marker>
+
+</defs>
+
+
+<!-- =====================================================
+     TITLE
+     ===================================================== -->
+
+<text x="150"
+      y="28"
+      class="svg-label">
+
+Bentuk Awal
+
+</text>
+
+
+<!-- =====================================================
+     GREEN RECTANGLE
+     
+     x × (x-a)
+     ===================================================== -->
+
+<rect id="m4Green"
+      fill="#86efac"
+      stroke="#111827"
+      stroke-width="3"/>
+
+<text id="m4GreenLabel"
+      class="svg-label">
+</text>
+
+
+<!-- =====================================================
+     RED SQUARE
+     
+     a²
+     ===================================================== -->
+
+<rect id="m4Cut"
+      fill="#fca5a5"
+      stroke="#111827"
+      stroke-width="3"/>
+
+<text id="m4CutLabel"
+      class="svg-label">
+a²
+</text>
+
+
+<!-- =====================================================
+     BLUE PIECE
+     
+     POSISI AWAL:
+     HORIZONTAL / TERLENTANG
+
+     width  = (x-a)
+     height = a
+
+     Setelah rotasi 90°:
+     width  = a
+     height = (x-a)
+
+     Kemudian ditempel di kanan
+     persegi panjang hijau.
+     ===================================================== -->
+
+<g id="m4BlueGroup">
+
+    <rect id="m4Blue"
+          fill="#60a5fa"
+          stroke="#111827"
+          stroke-width="3"/>
+
+    <text id="m4BlueLabel"
+          class="svg-label">
+        a × (x-a)
+    </text>
+
+</g>
+
+
+<!-- =====================================================
+     DASHED LINE
+     ===================================================== -->
+
+<line id="m4Dashed"
+      stroke="#374151"
+      stroke-width="2"
+      stroke-dasharray="7 5"/>
+
+
+<!-- =====================================================
+     ARROW
+     ===================================================== -->
+
+<path id="m4Arrow"
+      d="M300 350 C390 350 470 280 540 220"
+      fill="none"
+      stroke="#374151"
+      stroke-width="3"
+      marker-end="url(#m4ArrowHead)"
+      opacity="0"/>
+
+
+<!-- =====================================================
+     FINAL RECTANGLE
+     ===================================================== -->
+
+<g id="m4FinalGroup"
+   opacity="0">
+
+    <rect id="m4FinalRect"
+          fill="none"
+          stroke="#2563eb"
+          stroke-width="3"
+          stroke-dasharray="8 5"/>
+
+    <text id="m4FinalLabel"
+          class="svg-label">
+    </text>
+
+</g>
+
+
+<!-- =====================================================
+     STAGE TEXT
+     ===================================================== -->
+
+<text id="m4StageText"
+      x="380"
+      y="455"
+      class="svg-label">
+
+Luas awal: x² − a²
+
+</text>
+
+</svg>
+
+</div>
+
+
+<!-- =====================================================
+     CONTROL MODULE 4
+     ===================================================== -->
+
+<div class="card">
+
+<h3>Kontrol Visualisasi</h3>
+
+
+<div class="control-group">
+
+<label>
+
+Nilai x
+
+<span class="value"
+      id="x4Value">
+8
+</span>
+
+</label>
+
+<input type="range"
+       id="x4"
+       min="3"
+       max="10"
+       value="8">
+
+</div>
+
+
+<div class="control-group">
+
+<label>
+
+Nilai a
+
+<span class="value"
+      id="a4Value">
+3
+</span>
+
+</label>
+
+<input type="range"
+       id="a4"
+       min="1"
+       max="7"
+       value="3">
+
+</div>
+
+
+<div class="formula">
+
+x² - a² = (x+a)(x-a)
+
+</div>
+
+
+<div class="calculation">
+
+<p>
+<strong>
+Luas Awal:
+</strong>
+</p>
+
+<p id="m4InitialArea">
+</p>
+
+
+<p>
+<strong>
+Luas Setelah Dipotong:
+</strong>
+</p>
+
+<p id="m4AfterCut">
+</p>
+
+
+<p>
+<strong>
+Luas Setelah Disusun:
+</strong>
+</p>
+
+<p id="m4FinalArea">
+</p>
+
+
+<hr style="margin:12px 0">
+
+
+<p>
+<strong>
+Kesimpulan:
+</strong>
+</p>
+
+<p id="m4Equality">
+</p>
+
+</div>
+
+
+<div class="button-row">
+
+<button class="action"
+        id="m4Animate">
+
+▶ Rotasi & Tempel
+
+</button>
+
+<button class="action secondary"
+        id="m4Reset">
+
+↺ Reset
+
+</button>
+
+</div>
+
+
+<div class="animation-box">
+
+<div class="animation-title">
+
+Proses Transformasi
+
+</div>
+
+
+<div class="progress-label">
+
+<span>
+Proses
+</span>
+
+<span id="m4Percent">
+0%
+</span>
+
+</div>
+
+
+<input type="range"
+       id="m4Range"
+       min="0"
+       max="100"
+       value="0">
+
+
+<p class="animation-status"
+   id="m4Status">
+
+Luas awal: x² − a².
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
+function clamp(value, min, max) {
+
+    return Math.max(
+        min,
+        Math.min(max, value)
+    );
+
+}
+
+
+function easeInOut(t) {
+
+    return t < .5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+}
+
+
+function lerp(a, b, t) {
+
+    return a + (b - a) * t;
+
+}
+
+
+/* =========================================================
+   TAB SYSTEM
+   ========================================================= */
+
+const tabButtons =
+    document.querySelectorAll(".tab-button");
+
+const modules =
+    document.querySelectorAll(".module");
+
+
+tabButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        tabButtons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        modules.forEach(module =>
+            module.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        document
+            .getElementById(button.dataset.tab)
+            .classList.add("active");
+
+    });
+
+});
+
+
+/* =========================================================
+   GENERIC ANIMATION SYSTEM
+   ========================================================= */
+
+const animations = {};
+
+
+function createAnimation(
+    key,
+    render,
+    range,
+    status
+) {
+
+    animations[key] = {
+
+        frame: null,
+
+        progress: 0,
+
+        render,
+
+        range,
+
+        status
+
+    };
+
+}
+
+
+function stopAnimation(key) {
+
+    const animation =
+        animations[key];
+
+    if (!animation)
+        return;
+
+    if (animation.frame !== null) {
+
+        cancelAnimationFrame(
+            animation.frame
+        );
+
+        animation.frame = null;
+
+    }
+
+}
+
+
+function playAnimation(
+    key,
+    duration = 3500
+) {
+
+    const animation =
+        animations[key];
+
+    if (!animation)
+        return;
+
+    stopAnimation(key);
+
+    const startProgress =
+        animation.progress;
+
+    const startTime =
+        performance.now();
+
+
+    function frame(now) {
+
+        const elapsed =
+            now - startTime;
+
+        const t =
+            clamp(
+                elapsed / duration,
+                0,
+                1
+            );
+
+
+        animation.progress =
+            lerp(
+                startProgress,
+                100,
+                t
+            );
+
+
+        animation.range.value =
+            animation.progress;
+
+
+        animation.render(
+            animation.progress
+        );
+
+
+        if (t < 1) {
+
+            animation.frame =
+                requestAnimationFrame(
+                    frame
+                );
+
+        } else {
+
+            animation.frame = null;
+
+        }
+
+    }
+
+
+    animation.frame =
+        requestAnimationFrame(frame);
+
+}
+
+
+function resetAnimation(key) {
+
+    const animation =
+        animations[key];
+
+    if (!animation)
+        return;
+
+    stopAnimation(key);
+
+    animation.progress = 0;
+
+    animation.range.value = 0;
+
+    animation.render(0);
+
+}
+
+
+/* =========================================================
+   MODULE 1
+   ========================================================= */
+
+const a1 =
+    document.getElementById("a1");
+
+const b1 =
+    document.getElementById("b1");
+
+const c1 =
+    document.getElementById("c1");
+
+const d1 =
+    document.getElementById("d1");
+
+
+const m1AC =
+    document.getElementById("m1AC");
+
+const m1AD =
+    document.getElementById("m1AD");
+
+const m1BC =
+    document.getElementById("m1BC");
+
+const m1BD =
+    document.getElementById("m1BD");
+
+
+const m1Range =
+    document.getElementById("m1Range");
+
+const m1Percent =
+    document.getElementById("m1Percent");
+
+const m1Status =
+    document.getElementById("m1Status");
+
+
+function getM1Values() {
+
+    return {
+
+        a: Number(a1.value),
+
+        b: Number(b1.value),
+
+        c: Number(c1.value),
+
+        d: Number(d1.value)
+
+    };
+
+}
+
+
+function updateModule1() {
+
+    const {
+        a,
+        b,
+        c,
+        d
+    } = getM1Values();
+
+
+    document.getElementById("a1Value")
+        .textContent = a;
+
+    document.getElementById("b1Value")
+        .textContent = b;
+
+    document.getElementById("c1Value")
+        .textContent = c;
+
+    document.getElementById("d1Value")
+        .textContent = d;
+
+
+    const totalW =
+        c + d;
+
+    const totalH =
+        a + b;
+
+
+    const scale =
+        Math.min(
+            470 / totalW,
+            300 / totalH
+        );
+
+
+    const W =
+        totalW * scale;
+
+    const H =
+        totalH * scale;
+
+    const C =
+        c * scale;
+
+    const D =
+        d * scale;
+
+    const A =
+        a * scale;
+
+    const B =
+        b * scale;
+
+
+    const ox =
+        (620 - W) / 2;
+
+    const oy = 50;
+
+
+    m1AC.setAttribute(
+        "x",
+        ox
+    );
+
+    m1AC.setAttribute(
+        "y",
+        oy
+    );
+
+    m1AC.setAttribute(
+        "width",
+        C
+    );
+
+    m1AC.setAttribute(
+        "height",
+        A
+    );
+
+
+    m1AD.setAttribute(
+        "x",
+        ox + C
+    );
+
+    m1AD.setAttribute(
+        "y",
+        oy
+    );
+
+    m1AD.setAttribute(
+        "width",
+        D
+    );
+
+    m1AD.setAttribute(
+        "height",
+        A
+    );
+
+
+    m1BC.setAttribute(
+        "x",
+        ox
+    );
+
+    m1BC.setAttribute(
+        "y",
+        oy + A
+    );
+
+    m1BC.setAttribute(
+        "width",
+        C
+    );
+
+    m1BC.setAttribute(
+        "height",
+        B
+    );
+
+
+    m1BD.setAttribute(
+        "x",
+        ox + C
+    );
+
+    m1BD.setAttribute(
+        "y",
+        oy + A
+    );
+
+    m1BD.setAttribute(
+        "width",
+        D
+    );
+
+    m1BD.setAttribute(
+        "height",
+        B
+    );
+
+
+    setTextPosition(
+        "m1ACLabel",
+        ox + C / 2,
+        oy + A / 2
+    );
+
+    setTextPosition(
+        "m1ADLabel",
+        ox + C + D / 2,
+        oy + A / 2
+    );
+
+    setTextPosition(
+        "m1BCLabel",
+        ox + C / 2,
+        oy + A + B / 2
+    );
+
+    setTextPosition(
+        "m1BDLabel",
+        ox + C + D / 2,
+        oy + A + B / 2
+    );
+
+
+    document.getElementById(
+        "m1WidthLabel"
+    ).setAttribute(
+        "x",
+        ox + W / 2
+    );
+
+
+    document.getElementById(
+        "m1WidthLabel"
+    ).textContent =
+        `(c+d) = ${c+d}`;
+
+
+    document.getElementById(
+        "m1HeightLabel"
+    ).setAttribute(
+        "y",
+        oy + H / 2
+    );
+
+
+    document.getElementById(
+        "m1HeightLabel"
+    ).textContent =
+        `(a+b) = ${a+b}`;
+
+
+    const ac = a * c;
+
+    const ad = a * d;
+
+    const bc = b * c;
+
+    const bd = b * d;
+
+    const result =
+        (a+b) * (c+d);
+
+
+    document.getElementById(
+        "m1Calculation"
+    ).innerHTML = `
+
+        <p>
+        ac = ${a} × ${c} = ${ac}
+        </p>
+
+        <p>
+        ad = ${a} × ${d} = ${ad}
+        </p>
+
+        <p>
+        bc = ${b} × ${c} = ${bc}
+        </p>
+
+        <p>
+        bd = ${b} × ${d} = ${bd}
+        </p>
+
+        <hr style="margin:10px 0">
+
+        <p>
+        (${a}+${b})(${c}+${d})
+        = ${result}
+        </p>
+
+        <p>
+        ${ac}+${ad}+${bc}+${bd}
+        = ${result}
+        </p>
+
+        <p>
+        <strong>
+        ${result} = ${result} ✓
+        </strong>
+        </p>
+
+    `;
+
+
+    renderM1Animation(
+        animations.m1
+            ? animations.m1.progress
+            : 0
+    );
+
+}
+
+
+function renderM1Animation(progress) {
+
+    const {
+        a,
+        b,
+        c,
+        d
+    } = getM1Values();
+
+
+    const totalW = c+d;
+
+    const totalH = a+b;
+
+
+    const scale =
+        Math.min(
+            470 / totalW,
+            300 / totalH
+        );
+
+
+    const W =
+        totalW * scale;
+
+    const H =
+        totalH * scale;
+
+    const C =
+        c * scale;
+
+    const D =
+        d * scale;
+
+    const A =
+        a * scale;
+
+    const B =
+        b * scale;
+
+
+    const ox =
+        (620-W)/2;
+
+    const oy = 50;
+
+
+    const separation =
+        easeInOut(progress/100) * 30;
+
+
+    const pieces = [
+
+        [
+            m1AC,
+            -separation,
+            -separation
+        ],
+
+        [
+            m1AD,
+            separation,
+            -separation
+        ],
+
+        [
+            m1BC,
+            -separation,
+            separation
+        ],
+
+        [
+            m1BD,
+            separation,
+            separation
+        ]
+
+    ];
+
+
+    pieces.forEach(
+        p => {
+
+            p[0].setAttribute(
+                "transform",
+                `translate(${p[1]},${p[2]})`
+            );
+
+        }
+    );
+
+
+    m1Percent.textContent =
+        `${Math.round(progress)}%`;
+
+
+    if (progress === 0) {
+
+        m1Status.textContent =
+            "Bentuk lengkap: (a+b)(c+d).";
+
+    }
+
+    else if (progress < 100) {
+
+        m1Status.textContent =
+            "Bagian luas sedang dipisahkan untuk melihat setiap suku.";
+
+    }
+
+    else {
+
+        m1Status.textContent =
+            "✓ Semua bagian menunjukkan ac + ad + bc + bd.";
+
+    }
+
+}
+
+
+createAnimation(
+    "m1",
+    renderM1Animation,
+    m1Range,
+    m1Status
+);
+
+
+[a1,b1,c1,d1].forEach(
+    slider => {
+
+        slider.addEventListener(
+            "input",
+            updateModule1
+        );
+
+    }
+);
+
+
+m1Range.addEventListener(
+    "input",
+    () => {
+
+        stopAnimation("m1");
+
+        animations.m1.progress =
+            Number(m1Range.value);
+
+        renderM1Animation(
+            animations.m1.progress
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "m1Animate"
+).addEventListener(
+    "click",
+    () => playAnimation("m1")
+);
+
+
+document.getElementById(
+    "m1Reset"
+).addEventListener(
+    "click",
+    () => resetAnimation("m1")
+);
+
+
+/* =========================================================
+   MODULE 2
+   ========================================================= */
+
+const x2 =
+    document.getElementById("x2");
+
+const a2 =
+    document.getElementById("a2");
+
+
+const m2X2 =
+    document.getElementById("m2X2");
+
+const m2AX1 =
+    document.getElementById("m2AX1");
+
+const m2AX2 =
+    document.getElementById("m2AX2");
+
+const m2A2 =
+    document.getElementById("m2A2");
+
+
+const m2Range =
+    document.getElementById("m2Range");
+
+
+function updateModule2() {
+
+    const x =
+        Number(x2.value);
+
+    const a =
+        Number(a2.value);
+
+
+    document.getElementById(
+        "x2Value"
+    ).textContent = x;
+
+    document.getElementById(
+        "a2Value"
+    ).textContent = a;
+
+
+    const scale =
+        330 / (x+a);
+
+
+    const X =
+        x * scale;
+
+    const A =
+        a * scale;
+
+
+    const ox = 145;
+
+    const oy = 40;
+
+
+    m2X2.setAttribute(
+        "x",
+        ox
+    );
+
+    m2X2.setAttribute(
+        "y",
+        oy
+    );
+
+    m2X2.setAttribute(
+        "width",
+        X
+    );
+
+    m2X2.setAttribute(
+        "height",
+        X
+    );
+
+
+    m2AX1.setAttribute(
+        "x",
+        ox + X
+    );
+
+    m2AX1.setAttribute(
+        "y",
+        oy
+    );
+
+    m2AX1.setAttribute(
+        "width",
+        A
+    );
+
+    m2AX1.setAttribute(
+        "height",
+        X
+    );
+
+
+    m2AX2.setAttribute(
+        "x",
+        ox
+    );
+
+    m2AX2.setAttribute(
+        "y",
+        oy + X
+    );
+
+    m2AX2.setAttribute(
+        "width",
+        X
+    );
+
+    m2AX2.setAttribute(
+        "height",
+        A
+    );
+
+
+    m2A2.setAttribute(
+        "x",
+        ox + X
+    );
+
+    m2A2.setAttribute(
+        "y",
+        oy + X
+    );
+
+    m2A2.setAttribute(
+        "width",
+        A
+    );
+
+    m2A2.setAttribute(
+        "height",
+        A
+    );
+
+
+    setTextPosition(
+        "m2X2Label",
+        ox + X/2,
+        oy + X/2
+    );
+
+    setTextPosition(
+        "m2AX1Label",
+        ox + X + A/2,
+        oy + X/2
+    );
+
+    setTextPosition(
+        "m2AX2Label",
+        ox + X/2,
+        oy + X + A/2
+    );
+
+    setTextPosition(
+        "m2A2Label",
+        ox + X + A/2,
+        oy + X + A/2
+    );
+
+
+    const xSq =
+        x*x;
+
+    const ax =
+        a*x;
+
+    const aSq =
+        a*a;
+
+    const total =
+        (x+a)*(x+a);
+
+
+    document.getElementById(
+        "m2Calculation"
+    ).innerHTML = `
+
+        <p>
+        x² = ${x}² = ${xSq}
+        </p>
+
+        <p>
+        2ax = 2 × ${a} × ${x}
+        = ${2*ax}
+        </p>
+
+        <p>
+        a² = ${a}² = ${aSq}
+        </p>
+
+        <hr style="margin:10px 0">
+
+        <p>
+        (${x}+${a})² = ${x+a}² = ${total}
+        </p>
+
+        <p>
+        ${xSq} + ${2*ax} + ${aSq}
+        = ${total}
+        </p>
+
+        <p>
+        <strong>
+        ${total} = ${total} ✓
+        </strong>
+        </p>
+
+    `;
+
+
+    renderM2Animation(
+        animations.m2
+            ? animations.m2.progress
+            : 0
+    );
+
+}
+
+
+function setTextPosition(
+    id,
+    x,
+    y
+) {
+
+    const el =
+        document.getElementById(id);
+
+    el.setAttribute(
+        "x",
+        x
+    );
+
+    el.setAttribute(
+        "y",
+        y
+    );
+
+}
+
+
+function renderM2Animation(progress) {
+
+    const x =
+        Number(x2.value);
+
+    const a =
+        Number(a2.value);
+
+
+    const scale =
+        330/(x+a);
+
+
+    const X =
+        x*scale;
+
+    const A =
+        a*scale;
+
+
+    const s =
+        easeInOut(progress/100) * 28;
+
+
+    m2X2.setAttribute(
+        "transform",
+        `translate(${-s},${-s})`
+    );
+
+
+    m2AX1.setAttribute(
+        "transform",
+        `translate(${s},${-s})`
+    );
+
+
+    m2AX2.setAttribute(
+        "transform",
+        `translate(${-s},${s})`
+    );
+
+
+    m2A2.setAttribute(
+        "transform",
+        `translate(${s},${s})`
+    );
+
+
+    m2Range.value =
+        progress;
+
+
+    document.getElementById(
+        "m2Percent"
+    ).textContent =
+        `${Math.round(progress)}%`;
+
+
+    if (progress === 0) {
+
+        document.getElementById(
+            "m2Status"
+        ).textContent =
+            "Semua bagian membentuk persegi (x+a)².";
+
+    }
+
+    else if (progress < 100) {
+
+        document.getElementById(
+            "m2Status"
+        ).textContent =
+            "Bagian x², ax, ax, dan a² sedang dipisahkan.";
+
+    }
+
+    else {
+
+        document.getElementById(
+            "m2Status"
+        ).textContent =
+            "✓ x² + 2ax + a² membentuk kembali (x+a)².";
+
+    }
+
+}
+
+
+createAnimation(
+    "m2",
+    renderM2Animation,
+    m2Range,
+    document.getElementById("m2Status")
+);
+
+
+[x2,a2].forEach(
+    slider => {
+
+        slider.addEventListener(
+            "input",
+            updateModule2
+        );
+
+    }
+);
+
+
+m2Range.addEventListener(
+    "input",
+    () => {
+
+        stopAnimation("m2");
+
+        animations.m2.progress =
+            Number(m2Range.value);
+
+        renderM2Animation(
+            animations.m2.progress
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "m2Animate"
+).addEventListener(
+    "click",
+    () => playAnimation("m2")
+);
+
+
+document.getElementById(
+    "m2Reset"
+).addEventListener(
+    "click",
+    () => resetAnimation("m2")
+);
+
+
+/* =========================================================
+   MODULE 3
+   ========================================================= */
+
+const x3 =
+    document.getElementById("x3");
+
+const a3 =
+    document.getElementById("a3");
+
+
+const m3Main =
+    document.getElementById("m3Main");
+
+const m3Right =
+    document.getElementById("m3Right");
+
+const m3Bottom =
+    document.getElementById("m3Bottom");
+
+const m3Corner =
+    document.getElementById("m3Corner");
+
+
+const m3Range =
+    document.getElementById("m3Range");
+
+
+function getM3Values() {
+
+    let x =
+        Number(x3.value);
+
+    let a =
+        Number(a3.value);
+
+
+    if (a >= x) {
+
+        a = x - 1;
+
+        a3.value = a;
+
+    }
+
+
+    return {
+        x,
+        a
+    };
+
+}
+
+
+function updateModule3() {
+
+    const {
+        x,
+        a
+    } = getM3Values();
+
+
+    document.getElementById(
+        "x3Value"
+    ).textContent = x;
+
+
+    document.getElementById(
+        "a3Value"
+    ).textContent = a;
+
+
+    const scale =
+        320/x;
+
+
+    const X =
+        x*scale;
+
+    const A =
+        a*scale;
+
+    const R =
+        (x-a)*scale;
+
+
+    const ox = 145;
+
+    const oy = 40;
+
+
+    m3Main.setAttribute(
+        "x",
+        ox
+    );
+
+    m3Main.setAttribute(
+        "y",
+        oy
+    );
+
+    m3Main.setAttribute(
+        "width",
+        R
+    );
+
+    m3Main.setAttribute(
+        "height",
+        R
+    );
+
+
+    m3Right.setAttribute(
+        "x",
+        ox+R
+    );
+
+    m3Right.setAttribute(
+        "y",
+        oy
+    );
+
+    m3Right.setAttribute(
+        "width",
+        A
+    );
+
+    m3Right.setAttribute(
+        "height",
+        R
+    );
+
+
+    m3Bottom.setAttribute(
+        "x",
+        ox
+    );
+
+    m3Bottom.setAttribute(
+        "y",
+        oy+R
+    );
+
+    m3Bottom.setAttribute(
+        "width",
+        R
+    );
+
+    m3Bottom.setAttribute(
+        "height",
+        A
+    );
+
+
+    m3Corner.setAttribute(
+        "x",
+        ox+R
+    );
+
+    m3Corner.setAttribute(
+        "y",
+        oy+R
+    );
+
+    m3Corner.setAttribute(
+        "width",
+        A
+    );
+
+    m3Corner.setAttribute(
+        "height",
+        A
+    );
+
+
+    setTextPosition(
+        "m3MainLabel",
+        ox+R/2,
+        oy+R/2
+    );
+
+    setTextPosition(
+        "m3RightLabel",
+        ox+R+A/2,
+        oy+R/2
+    );
+
+    setTextPosition(
+        "m3BottomLabel",
+        ox+R/2,
+        oy+R+A/2
+    );
+
+    setTextPosition(
+        "m3CornerLabel",
+        ox+R+A/2,
+        oy+R+A/2
+    );
+
+
+    const result =
+        (x-a)*(x-a);
+
+    const expanded =
+        x*x - 2*x*a + a*a;
+
+
+    document.getElementById(
+        "m3Calculation"
+    ).innerHTML = `
+
+        <p>
+        x² = ${x}² = ${x*x}
+        </p>
+
+        <p>
+        2ax = 2 × ${x} × ${a}
+        = ${2*x*a}
+        </p>
+
+        <p>
+        a² = ${a}² = ${a*a}
+        </p>
+
+        <hr style="margin:10px 0">
+
+        <p>
+        (${x}-${a})² = ${result}
+        </p>
+
+        <p>
+        ${x*x} - ${2*x*a} + ${a*a}
+        = ${expanded}
+        </p>
+
+        <p>
+        <strong>
+        ${result} = ${expanded} ✓
+        </strong>
+        </p>
+
+    `;
+
+
+    renderM3Animation(
+        animations.m3
+            ? animations.m3.progress
+            : 0
+    );
+
+}
+
+
+function renderM3Animation(progress) {
+
+    const {
+        x,
+        a
+    } = getM3Values();
+
+
+    const move =
+        easeInOut(progress/100) * 35;
+
+
+    m3Main.setAttribute(
+        "transform",
+        "translate(0,0)"
+    );
+
+
+    m3Right.setAttribute(
+        "transform",
+        `translate(${move},0)`
+    );
+
+
+    m3Bottom.setAttribute(
+        "transform",
+        `translate(0,${move})`
+    );
+
+
+    m3Corner.setAttribute(
+        "transform",
+        `translate(${move},${move})`
+    );
+
+
+    m3Range.value =
+        progress;
+
+
+    document.getElementById(
+        "m3Percent"
+    ).textContent =
+        `${Math.round(progress)}%`;
+
+
+    if (progress === 0) {
+
+        document.getElementById(
+            "m3Status"
+        ).textContent =
+            "Persegi awal memiliki luas x².";
+
+    }
+
+    else if (progress < 100) {
+
+        document.getElementById(
+            "m3Status"
+        ).textContent =
+            "Bagian 2ax dipisahkan dan bagian a² terlihat.";
+
+    }
+
+    else {
+
+        document.getElementById(
+            "m3Status"
+        ).textContent =
+            "✓ Bagian tengah memiliki luas (x-a)².";
+
+    }
+
+}
+
+
+createAnimation(
+    "m3",
+    renderM3Animation,
+    m3Range,
+    document.getElementById("m3Status")
+);
+
+
+[x3,a3].forEach(
+    slider => {
+
+        slider.addEventListener(
+            "input",
+            updateModule3
+        );
+
+    }
+);
+
+
+m3Range.addEventListener(
+    "input",
+    () => {
+
+        stopAnimation("m3");
+
+        animations.m3.progress =
+            Number(m3Range.value);
+
+        renderM3Animation(
+            animations.m3.progress
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "m3Animate"
+).addEventListener(
+    "click",
+    () => playAnimation("m3")
+);
+
+
+document.getElementById(
+    "m3Reset"
+).addEventListener(
+    "click",
+    () => resetAnimation("m3")
+);
+
+
+/* =========================================================
+   MODULE 4
+   SELISIH KUADRAT
+   ========================================================= */
+
+const x4 =
+    document.getElementById("x4");
+
+const a4 =
+    document.getElementById("a4");
+
+
+const m4Green =
+    document.getElementById("m4Green");
+
+const m4Cut =
+    document.getElementById("m4Cut");
+
+const m4Blue =
+    document.getElementById("m4Blue");
+
+const m4BlueGroup =
+    document.getElementById("m4BlueGroup");
+
+const m4Range =
+    document.getElementById("m4Range");
+
+const m4FinalGroup =
+    document.getElementById("m4FinalGroup");
+
+const m4FinalRect =
+    document.getElementById("m4FinalRect");
+
+const m4Arrow =
+    document.getElementById("m4Arrow");
+
+const m4Dashed =
+    document.getElementById("m4Dashed");
+
+
+/* =========================================================
+   MODULE 4 GEOMETRY
+   ========================================================= */
+
+const ORIGIN_X = 55;
+
+const ORIGIN_Y = 55;
+
+const DRAW_SIZE = 260;
+
+
+/* =========================================================
+   GET VALUES
+   ========================================================= */
+
+function getM4Values() {
+
+    let x =
+        Number(x4.value);
+
+    let a =
+        Number(a4.value);
+
+
+    if (a >= x) {
+
+        a = x - 1;
+
+        a4.value = a;
+
+    }
+
+
+    return {
+
+        x,
+
+        a,
+
+        r: x-a
+
+    };
+
+}
+
+
+/* =========================================================
+   UPDATE MODULE 4
+   ========================================================= */
+
+function updateModule4() {
+
+    const {
+        x,
+        a,
+        r
+    } = getM4Values();
+
+
+    document.getElementById(
+        "x4Value"
+    ).textContent = x;
+
+
+    document.getElementById(
+        "a4Value"
+    ).textContent = a;
+
+
+    const scale =
+        DRAW_SIZE/x;
+
+
+    const S =
+        x*scale;
+
+    const A =
+        a*scale;
+
+    const R =
+        r*scale;
+
+
+    /*
+       =====================================================
+       GEOMETRI DASAR
+
+       GREEN:
+       x × (x-a)
+
+       RED:
+       a × a
+
+       BLUE:
+       SEBELUM ROTASI:
+       (x-a) × a
+       HORIZONTAL
+
+       SESUDAH ROTASI:
+       a × (x-a)
+       VERTIKAL
+       =====================================================
+    */
+
+
+    /* -----------------------------------------------------
+       GREEN
+       ----------------------------------------------------- */
+
+    setRect(
+        m4Green,
+        ORIGIN_X,
+        ORIGIN_Y,
+        S,
+        R
+    );
+
+
+    /* -----------------------------------------------------
+       RED SQUARE
+       ----------------------------------------------------- */
+
+    setRect(
+        m4Cut,
+
+        ORIGIN_X + S - A,
+
+        ORIGIN_Y + R,
+
+        A,
+
+        A
+    );
+
+
+    /* -----------------------------------------------------
+       BLUE INITIAL
+
+       Horizontal / tidur.
+
+       width  = R
+       height = A
+
+       Posisi:
+       di bawah green,
+       tepat di sebelah kiri
+       persegi a².
+       ----------------------------------------------------- */
+
+    setRect(
+        m4Blue,
+
+        0,
+        0,
+        R,
+        A
+    );
+
+
+    /* -----------------------------------------------------
+       LABEL GREEN
+       ----------------------------------------------------- */
+
+    document.getElementById(
+        "m4GreenLabel"
+    ).textContent =
+        "x × (x-a)";
+
+
+    setTextPosition(
+        "m4GreenLabel",
+        ORIGIN_X + S/2,
+        ORIGIN_Y + R/2
+    );
+
+
+    /* -----------------------------------------------------
+       LABEL RED
+       ----------------------------------------------------- */
+
+    setTextPosition(
+        "m4CutLabel",
+        ORIGIN_X + S - A/2,
+        ORIGIN_Y + R + A/2
+    );
+
+
+    /* -----------------------------------------------------
+       LABEL BLUE
+       
+       Karena label ikut berada di dalam group,
+       posisinya mengikuti bentuk blue.
+       ----------------------------------------------------- */
+
+    setTextPosition(
+        "m4BlueLabel",
+        R/2,
+        A/2
+    );
+
+
+    /*
+       -----------------------------------------------------
+       DASHED LINE
+       Menunjukkan batas antara hijau dan bagian bawah.
+       -----------------------------------------------------
+    */
+
+    m4Dashed.setAttribute(
+        "x1",
+        ORIGIN_X
+    );
+
+    m4Dashed.setAttribute(
+        "y1",
+        ORIGIN_Y + R
+    );
+
+    m4Dashed.setAttribute(
+        "x2",
+        ORIGIN_X + S
+    );
+
+    m4Dashed.setAttribute(
+        "y2",
+        ORIGIN_Y + R
+    );
+
+
+    /*
+       -----------------------------------------------------
+       FINAL RECTANGLE
+
+       Lebar:
+       x + a
+
+       Tinggi:
+       x - a
+       -----------------------------------------------------
+    */
+
+    const finalW =
+        (x+a)*scale;
+
+    const finalH =
+        R;
+
+
+    setRect(
+        m4FinalRect,
+
+        ORIGIN_X,
+
+        ORIGIN_Y,
+
+        finalW,
+
+        finalH
+    );
+
+
+    setTextPosition(
+        "m4FinalLabel",
+
+        ORIGIN_X + finalW/2,
+
+        ORIGIN_Y + finalH/2
+    );
+
+
+    document.getElementById(
+        "m4FinalLabel"
+    ).textContent =
+        `(x+a) × (x-a)`;
+
+
+    /*
+       -----------------------------------------------------
+       PERHITUNGAN
+       -----------------------------------------------------
+    */
+
+    const xSq =
+        x*x;
+
+    const aSq =
+        a*a;
+
+    const remaining =
+        xSq-aSq;
+
+
+    document.getElementById(
+        "m4InitialArea"
+    ).textContent =
+        `${x}² = ${xSq}`;
+
+
+    document.getElementById(
+        "m4AfterCut"
+    ).textContent =
+        `${xSq} - ${aSq} = ${remaining}`;
+
+
+    document.getElementById(
+        "m4FinalArea"
+    ).textContent =
+        `(${x}+${a})(${x}-${a}) = ${remaining}`;
+
+
+    document.getElementById(
+        "m4Equality"
+    ).textContent =
+        `${xSq} - ${aSq}
+        =
+        ${x+a} × ${x-a}
+        =
+        ${remaining}`;
+
+
+    renderM4Animation(
+        animations.m4
+            ? animations.m4.progress
+            : 0
+    );
+
+}
+
+
+/* =========================================================
+   SET RECT
+   ========================================================= */
+
+function setRect(
+    el,
+    x,
+    y,
+    width,
+    height
+) {
+
+    el.setAttribute(
+        "x",
+        x
+    );
+
+    el.setAttribute(
+        "y",
+        y
+    );
+
+    el.setAttribute(
+        "width",
+        width
+    );
+
+    el.setAttribute(
+        "height",
+        height
+    );
+
+}
+
+
+/* =========================================================
+   MODULE 4 ANIMATION
+   =========================================================
+
+   TAHAP 1
+   0%
+
+   Blue horizontal.
+   Blue berada tepat di bawah bagian hijau
+   dan berdampingan dengan persegi a².
+
+
+   TAHAP 2
+   0% → 20%
+
+   Blue bergerak keluar sedikit
+   agar tidak langsung berputar di dalam susunan.
+
+
+   TAHAP 3
+   20% → 50%
+
+   Blue berputar 90° searah jarum jam.
+
+   Dari:
+       horizontal
+
+   Menjadi:
+       vertikal
+
+
+   TAHAP 4
+   50% → 100%
+
+   Blue langsung bergerak ke kanan
+   dan menempel pada sisi kanan
+   persegi panjang hijau.
+
+   Hasil:
+       x × (x-a)
+       +
+       a × (x-a)
+
+       =
+       (x+a) × (x-a)
+
+   TIDAK ADA TAHAP KE-5 ATAU KE-6.
+   ========================================================= */
+
+
+function renderM4Animation(progress) {
+
+    const {
+        x,
+        a,
+        r
+    } = getM4Values();
+
+
+    const scale =
+        DRAW_SIZE/x;
+
+
+    const S =
+        x*scale;
+
+    const A =
+        a*scale;
+
+    const R =
+        r*scale;
+
+
+    /*
+       =====================================================
+       POSISI AWAL BLUE
+       =====================================================
+
+       Karena blue pada awalnya horizontal:
+
+       width  = R
+       height = A
+
+       Posisinya tepat di bawah green
+       dan di sebelah kiri persegi merah.
+       =====================================================
+    */
+
+    const startX =
+        ORIGIN_X;
+
+    const startY =
+        ORIGIN_Y + R;
+
+
+    const startWidth =
+        R;
+
+    const startHeight =
+        A;
+
+
+    const startCX =
+        startX + startWidth/2;
+
+    const startCY =
+        startY + startHeight/2;
+
+
+    /*
+       =====================================================
+       SETELAH ROTASI 90°
+
+       Ukuran visual blue berubah:
+
+       width  = A
+       height = R
+
+       Titik pusat tetap sama selama rotasi.
+       =====================================================
+    */
+
+    const rotatedWidth =
+        A;
+
+    const rotatedHeight =
+        R;
+
+
+    /*
+       =====================================================
+       POSISI AKHIR
+
+       Blue ditempel tepat di kanan green.
+
+       Green:
+       x × (x-a)
+
+       Blue:
+       a × (x-a)
+       =====================================================
+    */
+
+    const finalX =
+        ORIGIN_X + S;
+
+    const finalY =
+        ORIGIN_Y;
+
+
+    const finalCX =
+        finalX + A/2;
+
+    const finalCY =
+        finalY + R/2;
+
+
+    /*
+       =====================================================
+       VARIABEL ANIMASI
+       =====================================================
+    */
+
+    let cx;
+
+    let cy;
+
+    let rotation;
+
+
+    /*
+       =====================================================
+       TAHAP 1 + 2
+       0% → 20%
+
+       Blue masih HORIZONTAL.
+
+       Blue bergerak sedikit ke bawah
+       dan ke kiri untuk memberi ruang
+       sebelum rotasi.
+       =====================================================
+    */
+
+    if (progress <= 20) {
+
+        const p =
+            easeInOut(
+                progress / 20
+            );
+
+
+        cx =
+            lerp(
+                startCX,
+                startCX - 25,
+                p
+            );
+
+
+        cy =
+            lerp(
+                startCY,
+                startCY + 35,
+                p
+            );
+
+
+        rotation = 0;
+
+    }
+
+
+    /*
+       =====================================================
+       TAHAP 3
+       20% → 50%
+
+       Blue berputar 90°.
+
+       Pusat blue tetap di tempat
+       selama proses rotasi.
+       =====================================================
+    */
+
+    else if (progress <= 50) {
+
+        const p =
+            easeInOut(
+                (progress - 20) / 30
+            );
+
+
+        cx =
+            startCX - 25;
+
+
+        cy =
+            startCY + 35;
+
+
+        rotation =
+            90 * p;
+
+    }
+
+
+    /*
+       =====================================================
+       TAHAP 4
+       50% → 100%
+
+       Setelah selesai rotasi,
+       blue langsung bergerak ke kanan.
+
+       Tidak ada tahap tambahan.
+       =====================================================
+    */
+
+    else {
+
+        const p =
+            easeInOut(
+                (progress - 50) / 50
+            );
+
+
+        cx =
+            lerp(
+                startCX - 25,
+                finalCX,
+                p
+            );
+
+
+        cy =
+            lerp(
+                startCY + 35,
+                finalCY,
+                p
+            );
+
+
+        rotation = 90;
+
+    }
+
+
+    /*
+       =====================================================
+       BLUE TRANSFORM
+
+       PENTING:
+
+       Rect blue dibuat horizontal:
+
+       R × A
+
+       Setelah rotate(90), secara visual
+       menjadi:
+
+       A × R
+
+       Ketika selesai, blue berada
+       tepat di kanan green.
+       =====================================================
+    */
+
+    m4BlueGroup.setAttribute(
+        "transform",
+
+        `
+        translate(${cx}, ${cy})
+        rotate(${rotation})
+        translate(${-startWidth/2}, ${-startHeight/2})
+        `
+    );
+
+
+    /*
+       =====================================================
+       FINAL OUTLINE
+
+       Hanya sebagai penanda bentuk akhir.
+
+       Tidak digunakan untuk menutupi
+       bagian blue.
+
+       Muncul ketika proses hampir selesai.
+       =====================================================
+    */
+
+    if (progress >= 85) {
+
+        const opacity =
+            (progress - 85) / 15;
+
+
+        m4FinalGroup.setAttribute(
+            "opacity",
+            opacity
+        );
+
+    }
+
+    else {
+
+        m4FinalGroup.setAttribute(
+            "opacity",
+            0
+        );
+
+    }
+
+
+    /*
+       =====================================================
+       ARROW
+       =====================================================
+    */
+
+    if (
+        progress > 5 &&
+        progress < 95
+    ) {
+
+        m4Arrow.setAttribute(
+            "opacity",
+            1
+        );
+
+    }
+
+    else {
+
+        m4Arrow.setAttribute(
+            "opacity",
+            0
+        );
+
+    }
+
+
+    /*
+       =====================================================
+       STATUS
+       =====================================================
+    */
+
+    if (progress === 0) {
+
+        document.getElementById(
+            "m4Status"
+        ).textContent =
+            "Bagian biru horizontal dan menutup ruang kosong di samping a².";
+
+
+        document.getElementById(
+            "m4StageText"
+        ).textContent =
+            "Luas awal: x² − a²";
+
+    }
+
+
+    else if (progress < 20) {
+
+        document.getElementById(
+            "m4Status"
+        ).textContent =
+            "Bagian biru bergerak keluar sebelum diputar.";
+
+
+        document.getElementById(
+            "m4StageText"
+        ).textContent =
+            "Bagian biru dipindahkan";
+
+    }
+
+
+    else if (progress < 50) {
+
+        document.getElementById(
+            "m4Status"
+        ).textContent =
+            "Bagian biru berputar 90° searah jarum jam.";
+
+
+        document.getElementById(
+            "m4StageText"
+        ).textContent =
+            "Rotasi 90°";
+
+    }
+
+
+    else if (progress < 100) {
+
+        document.getElementById(
+            "m4Status"
+        ).textContent =
+            "Bagian biru bergerak ke kanan dan menempel pada sisi hijau.";
+
+
+        document.getElementById(
+            "m4StageText"
+        ).textContent =
+            "Menyusun menjadi (x+a) × (x-a)";
+
+    }
+
+
+    else {
+
+        document.getElementById(
+            "m4Status"
+        ).textContent =
+            "✓ Terbukti: x² − a² = (x+a)(x-a).";
+
+
+        document.getElementById(
+            "m4StageText"
+        ).textContent =
+            "✓ Terbukti: x² − a² = (x+a)(x-a)";
+
+    }
+
+
+    /*
+       =====================================================
+       PERSENTASE
+       =====================================================
+    */
+
+    document.getElementById(
+        "m4Percent"
+    ).textContent =
+        `${Math.round(progress)}%`;
+
+
+    m4Range.value =
+        progress;
+
+}
+
+
+/* =========================================================
+   MODULE 4 ANIMATION REGISTRATION
+   ========================================================= */
+
+createAnimation(
+    "m4",
+    renderM4Animation,
+    m4Range,
+    document.getElementById("m4Status")
+);
+
+
+/* =========================================================
+   MODULE 4 EVENTS
+   ========================================================= */
+
+[x4,a4].forEach(
+    slider => {
+
+        slider.addEventListener(
+            "input",
+            updateModule4
+        );
+
+    }
+);
+
+
+m4Range.addEventListener(
+    "input",
+    () => {
+
+        stopAnimation("m4");
+
+        animations.m4.progress =
+            Number(m4Range.value);
+
+        renderM4Animation(
+            animations.m4.progress
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "m4Animate"
+).addEventListener(
+    "click",
+    () => {
+
+        playAnimation(
+            "m4",
+            4200
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "m4Reset"
+).addEventListener(
+    "click",
+    () => {
+
+        resetAnimation("m4");
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+updateModule1();
+
+updateModule2();
+
+updateModule3();
+
+updateModule4();
+
+</script>
+
+</body>
+</html>
